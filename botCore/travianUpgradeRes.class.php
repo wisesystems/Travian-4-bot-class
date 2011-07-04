@@ -3,6 +3,7 @@
 class travianUpgradeRes extends travianUtils{
     private $isOk = false;
     private $rId = 0;
+    private $buildTime = 0;
     
     public function setResourceId( $rId )
     {
@@ -15,6 +16,11 @@ class travianUpgradeRes extends travianUtils{
         $html->load( $this->goToPage('build.php?id='.$this->rId) );
         if($html->find('button[class=build]',0))
         {
+          //Get build time
+          $time = $html->find('span[class=clocks]',0)->plaintext;
+          $tmp = explode(':',$time);
+          $this->buildTime = $tmp[0] * 3600 + $tmp[1] * 60 + $tmp[2];
+            
           // Upgrade is posible  
           $actionOnClick = $html->find('button[class=build]',0)->onclick;
           $actionParts = explode('\'', $actionOnClick);
@@ -47,5 +53,10 @@ class travianUpgradeRes extends travianUtils{
         }
         
         return $np;
+    }
+    
+    public function getBuildTime()
+    {
+        return $this->buildTime;
     }
 }
