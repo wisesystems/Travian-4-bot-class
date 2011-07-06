@@ -58,7 +58,7 @@ class cUrlClass{
     public function sendPostData($url,$data,$rt = 0)	 
     {
         $this->checkSettings();
-	$post_data = $this->arrayToString($data);
+	$post_data = http_build_query($data);
         
         $ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$this->main_url.$url);
@@ -79,19 +79,6 @@ class cUrlClass{
         else
            curl_exec($ch); 
     }
-
-    private function arrayToString($array)
-    {
-	$string = '';
-	foreach($array as $inp_name => $inp_value)
-	 {
-             if(strlen($string) > 0)
-	        $string = $string.'&';
-
-	     $string = $string.$inp_name.'='.$inp_value;  	
-	 }
-	  return $string;	
-     }
 }
 
 ?>
