@@ -2,6 +2,7 @@
 
 class travianSendResources extends travianUtils{
     private $merchants = 0;
+    private $merchCapacity = 0;
     private $r = array();
     private $to;
     private $formOneInputs = array();
@@ -13,6 +14,7 @@ class travianSendResources extends travianUtils{
         $html->load( $page );
         $tmp = explode( ' ' , $html->find( 'div[class*=traderCount] div[class=boxes-contents]' , 0 )->innertext );
         $this->merchants = (int)$tmp[1];
+        $this->merchCapacity = $html->find( 'td[class=max] a',0)->innertext;
         $this->formOneInputs = $this->getInputsFromForm( 'build.php' , $page );
     }
     
@@ -29,9 +31,9 @@ class travianSendResources extends travianUtils{
         $this->to = array('x' => $x , 'y' => $y);
     }
     
-    public function getMerchantsNum()
+    public function getTotalCapacity()
     {
-        return $this->merchants;
+        return $this->merchants * $this->merchCapacity;
     }
     
     public function exec()
