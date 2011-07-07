@@ -12,6 +12,7 @@ include("botCore/travianBot.class.php");
 include("botCore/travianUpgradeRes.class.php");
 include("botCore/travianAttack.class.php");
 include("botCore/travianSendRes.class.php");
+include("botCore/travianTroopsNum.class.php");
 
 $html = new simple_html_dom;
 ?>
