@@ -155,4 +155,17 @@ class travianBot extends travianUtils{
         return $this->villageInfo;
     }
     
+    public function getVillagesList()
+    {
+        global $html;
+        $html->load( $this->goToPage( 'dorf1.php' ) );
+        $res = array();
+        foreach($html->find('div[class=list] ul li ') as $li)
+        {
+            $tmpVillageId = explode( '=' , $li->find('a',0)->href );
+            $res[ $tmpVillageId[1] ] = $li->find('a',0)->innertext; 
+        }
+         return $res;
+    }
+    
 }
